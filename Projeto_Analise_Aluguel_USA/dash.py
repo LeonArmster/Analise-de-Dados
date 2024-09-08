@@ -110,8 +110,6 @@ st.write('Total de Imóveis: ', df_filtro.shape[0])
 
 
 # Criando as colunas do Dashboard
-
-
 st.markdown("""
     <style>
     .main .block-container {
@@ -137,9 +135,6 @@ with st.container():
     with col2:
         st.subheader('Mapa Demonstrando a distribuição dos imóveis')
         st_folium(mapa, width=650, height=420)
-
-
-st.empty()
 
 with st.container():
     col3, col4 = st.columns(2, gap='small')
