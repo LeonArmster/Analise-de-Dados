@@ -109,42 +109,25 @@ mapa.get_root().html.add_child(folium.Element(titulo))
 st.write('Total de Imóveis: ', df_filtro.shape[0])
 
 
-# Criando as colunas do Dashboard
-st.markdown("""
-    <style>
-    .main .block-container {
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-    }
-    .css-18e3th9 {
-        padding-top: 0rem;
-        padding-bottom: 0rem;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
+# Criando as colunas do Dashboard com ajuste de largura
+col1, col2 = st.columns([2, 2])  # Ajuste os pesos conforme necessário
+col3, col4 = st.columns([2, 2])  # Ajuste os pesos conforme necessário
 
 # Exibindo os dados nas colunas criadas
-with st.container():
-    col1, col2 = st.columns(2, gap='small')
+with col1:
+    st.subheader('Informações Analíticas')
+    st.dataframe(df_filtro.set_index(df_filtro.columns[0]), width=720, height=420)
 
-    with col1:
-        st.subheader('Informações Analíticas')
-        st.dataframe(df_filtro.set_index(df_filtro.columns[0]), width=720, height=420)
+with col2:
+    st.subheader('Mapa Demonstrando a Distribuição dos Imóveis')
+    st_folium(mapa, width=650, height=420)
 
-    with col2:
-        st.subheader('Mapa Demonstrando a distribuição dos imóveis')
-        st_folium(mapa, width=650, height=420)
+with col3:
+    st.subheader('Relação entre o Valor do Aluguel x Tamanho do Imóvel')
+    fig_tamanho = px.scatter(df_filtro, x='Tamanho', y='VL_Aluguel')
+    st.plotly_chart(fig_tamanho, width=650, height=420)
 
-with st.container():
-    col3, col4 = st.columns(2, gap='small')
-
-    with col3:
-        st.subheader('Relação entre o valor do aluguem x tamanho imóvel')
-        fig_tamanho = px.scatter(df_filtro, x = 'Tamanho', y = 'VL_Aluguel')
-        col3.plotly_chart(fig_tamanho, width=650, height=420)
-
-    with col4:
-        st.subheader('Valor dos Imóveis x Imobiliária')
-        fig_valor = px.bar(df_filtro, x = 'Imobiliaria', y = 'VL_Aluguel')
-        col4.plotly_chart(fig_valor, width = 720, height = 420)
+with col4:
+    st.subheader('Valor dos Imóveis x Imobiliária')
+    fig_valor = px.bar(df_filtro, x='Imobiliaria', y='VL_Aluguel')
+    st.plotly_chart(fig_valor, width=720, height=420)
