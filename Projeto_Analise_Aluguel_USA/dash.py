@@ -28,8 +28,14 @@ st.title('Dashboard de Anáiise de Aluguéis de Imóveis nos EUA')
 # Criando um separados
 st.write('---')
 
-# Carregando os dados
-df = pd.read_csv('dados_tratados.csv', encoding='latin-1')
+
+# Baixando o arquivo tratado salvo no github
+## url do arquivo
+
+url = 'https://raw.githubusercontent.com/LeonArmster/Projetos-Analise-Dados/main/Projeto_Analise_Aluguel_USA/dados_tratados.csv'
+
+## Carregando os dados
+df = pd.read_csv(url, sep=',', encoding='latin-1')
 
 # Variáveis para controle do sidebar
 dias_min = df['Dias_Anuncio'].min()
