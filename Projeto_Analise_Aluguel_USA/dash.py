@@ -111,21 +111,6 @@ st.write('Total de Imóveis: ', df_filtro.shape[0])
 
 # Criando as colunas do Dashboard
 
-
-st.markdown("""
-    <style>
-    .main .block-container {
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-    }
-    .css-18e3th9 {
-        padding-top: 0rem;
-        padding-bottom: 0rem;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
-
 # Exibindo os dados nas colunas criadas
 with st.container():
     col1, col2 = st.columns(2, gap='small')
@@ -147,9 +132,11 @@ with st.container():
     with col3:
         st.subheader('Relação entre o valor do aluguem x tamanho imóvel')
         fig_tamanho = px.scatter(df_filtro, x = 'Tamanho', y = 'VL_Aluguel')
-        col3.plotly_chart(fig_tamanho, width=650, height=420)
+        fig_tamanho.update_layout(width=650, height=420)
+        col3.plotly_chart(fig_tamanho, use_container_width=True)
 
     with col4:
         st.subheader('Valor dos Imóveis x Imobiliária')
         fig_valor = px.bar(df_filtro, x = 'Imobiliaria', y = 'VL_Aluguel')
-        col4.plotly_chart(fig_valor, width = 720, height = 420)
+        fig_valor.update_layout(width = 720, height = 420)
+        col4.plotly_chart(fig_valor, use_container_width=True)
