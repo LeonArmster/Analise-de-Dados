@@ -29,7 +29,7 @@ st.title('Dashboard de Anáiise de Aluguéis de Imóveis nos EUA')
 st.write('---')
 
 # Carregando os dados
-df = pd.read_csv('dados_tratados.csv', encoding='latin-1')
+df = pd.read_csv('Projeto_Analise_Aluguel_USA/dados_tratados.csv', encoding='latin-1')
 
 # Variáveis para controle do sidebar
 dias_min = df['Dias_Anuncio'].min()
@@ -112,16 +112,18 @@ st.write('Total de Imóveis: ', df_filtro.shape[0])
 # Criando as colunas do Dashboard
 
 # Exibindo os dados nas colunas criadas
-with st.container():
-    col1, col2 = st.columns(2, gap='small')
+with col1:
+    st.subheader('Informações Analíticas')
+    st.dataframe(df_filtro.set_index(df_filtro.columns[0]), width=720, height=420)
 
-    with col1:
-        st.subheader('Informações Analíticas')
-        st.dataframe(df_filtro.set_index(df_filtro.columns[0]), width=720, height=420)
+with col2:
+    st.subheader('Mapa Demonstrando a Distribuição dos Imóveis')
+    st_folium(mapa, width=650, height=420)
 
-    with col2:
-        st.subheader('Mapa Demonstrando a distribuição dos imóveis')
-        st_folium(mapa, width=650, height=420)
+with col3:
+    st.subheader('Relação entre o Valor do Aluguel x Tamanho do Imóvel')
+    fig_tamanho = px.scatter(df_filtro, x='Tamanho', y='VL_Aluguel')
+    st.plotly_chart(fig_tamanho, width=650, height=420)
 
 
 st.empty()

@@ -11,3 +11,8 @@ Essa analise tem como objetivo analisar a base de dados de imóveis e entender:
 ### Fonte de dados
 
 Fonde de dados: https://www.kaggle.com/datasets/shashanks1202/apartment-rent-data
+
+
+### Dashboard para resumo da analise
+
+https://dash-rent-usa.streamlit.app/
